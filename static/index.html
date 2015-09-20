@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script src="//cdn.rawgit.com/dcodeIO/Long.js/master/dist/Long.min.js"></script>
+<script src="//cdn.rawgit.com/dcodeIO/ByteBuffer.js/master/dist/ByteBufferAB.min.js"></script>
+<script src="//cdn.rawgit.com/dcodeIO/ProtoBuf.js/master/dist/ProtoBuf.min.js"></script>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+<script>
+if (typeof dcodeIO === 'undefined' || !dcodeIO.ProtoBuf) {
+    throw(new Error("ProtoBuf.js is not present. Please see www/index.html for manual setup instructions."));
+}
+// Initialize ProtoBuf.js
+var ProtoBuf = dcodeIO.ProtoBuf;
+var Message = ProtoBuf.loadProtoFile("./proto/message/message.proto").build("Message");
+var msg = new Message("hello");
+
+var xhr = new XMLHttpRequest;
+xhr.open("POST", '/api', true);
+xhr.responseType = 'arraybuffer';
+xhr.onload = function (e) {
+	if (this.status == 200) {
+		console.log(this.response.length)
+		console.log(Message.decode(this.response))
+	} else {
+		console.log("bad status:", this.status)
+	}
+};
+xhr.send(new DataView(msg.toArrayBuffer()))
+
+</script>
+</head>
+<body>
+</body>
+</html>
