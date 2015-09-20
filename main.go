@@ -45,9 +45,6 @@ func writeRes(res http.ResponseWriter, msgtxt string) {
 		log.Println("marshaling:", err)
 		return
 	}
-	log.Printf("Sending %d bytes\n", len(bin))
-	log.Println("Sending message: ", bin)
-	log.Println("Sending message: ", proto.MarshalTextString(&msg))
 	res.Write(bin)
 }
 
