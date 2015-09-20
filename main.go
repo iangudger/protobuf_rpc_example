@@ -12,6 +12,7 @@ import (
 )
 
 func apiHandler(res http.ResponseWriter, req *http.Request, ps httprouter.Params) {
+	log.Println("Got api request from:", req.RemoteAddr)
 	buf := new(bytes.Buffer)
 	buf.ReadFrom(req.Body)
 
@@ -32,6 +33,7 @@ func apiHandler(res http.ResponseWriter, req *http.Request, ps httprouter.Params
 }
 
 func staticHandler(res http.ResponseWriter, req *http.Request, ps httprouter.Params) {
+	log.Println("Got static file request from:", req.RemoteAddr)
 	res.Header().Set("cache-control", "public, no-transform")
 	path := "./static" + ps.ByName("filepath")
 	log.Println("Serving file:", path)
