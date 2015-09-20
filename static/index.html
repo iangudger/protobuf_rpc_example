@@ -18,7 +18,6 @@ xhr.open("POST", '/api', true);
 xhr.responseType = 'arraybuffer';
 xhr.onload = function (e) {
 	if (this.status == 200) {
-		console.log(this.response.length)
 		console.log(Message.decode(this.response))
 	} else {
 		console.log("bad status:", this.status)
