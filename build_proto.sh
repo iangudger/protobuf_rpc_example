@@ -1,2 +1,4 @@
 #!/bin/bash
-cd static/proto; protoc --go_out=../../proto */*.proto
+rm -rf proto
+mkdir proto
+cd static/proto; find . -type f -name "*.proto" | xargs protoc --go_out=../../proto
