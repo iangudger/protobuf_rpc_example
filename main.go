@@ -18,7 +18,7 @@ func apiHandler(res http.ResponseWriter, req *http.Request, ps httprouter.Params
 
 	reqMsg := message.Message{}
 	if err := proto.Unmarshal(buf.Bytes(), &reqMsg); err != nil {
-		log.Println("unmarshaling:", err)
+		log.Println("Error unmarshaling:", err)
 		writeRes(res, err.Error())
 		return
 	}
@@ -44,7 +44,7 @@ func writeRes(res http.ResponseWriter, msgtxt string) {
 	msg := message.Message{Text: proto.String(msgtxt)}
 	bin, err := proto.Marshal(&msg)
 	if err != nil {
-		log.Println("marshaling:", err)
+		log.Println("Error marshaling:", err)
 		return
 	}
 	res.Write(bin)
